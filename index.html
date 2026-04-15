@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web3D Studio</title>
+  <title>Generic Furniture Company</title>
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/shared.css" />
   <link rel="stylesheet" href="css/home.css" />
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <script type="importmap">
   {
     "imports": {
@@ -17,150 +17,22 @@
   </script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <span class="logo">Web3D Studio</span>
-      <span class="tagline">Interactive 3D app with model selection and lighting controls</span>
-    </div>
-    <nav>
-      <a href="index.html" class="active">Home</a>
-      <a href="pages/products.html">Products</a>
-      <a href="pages/about.html">About</a>
-      <a href="pages/statement.html">Statement</a>
-      <a href="pages/references.html">References</a>
-      <a href="https://github.com/" target="_blank" rel="noreferrer" class="icon-link" aria-label="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.16 6.84 9.49.5.09.66-.22.66-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.1-1.45-1.1-1.45-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0112 6.8c.85.004 1.71.11 2.51.32 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.74 0 .27.16.58.67.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/>
-        </svg>
-      </a>
-    </nav>
-  </header>
-
+  <div id="shared-nav"></div>
   <main class="container py-5">
-    <div class="row gx-4 gy-4">
-      <aside class="col-lg-4">
-        <section class="panel panel-controls">
-          <h1>3D App Control Panel</h1>
-          <p>Select a model, change the render mode, and control the lighting.</p>
-          <div class="button-grid">
-            <button class="btn btn-outline-primary" data-model="table">Table</button>
-            <button class="btn btn-outline-primary" data-model="chair">Chair</button>
-            <button class="btn btn-outline-primary" data-model="bench">Bench</button>
-          </div>
-
-          <div class="control-group">
-            <label>Wireframe mode</label>
-            <button id="toggleWireframe" class="btn btn-warning">Toggle Wireframe</button>
-          </div>
-
-          <div class="control-group">
-            <label for="lightIntensity">Light intensity</label>
-            <input id="lightIntensity" type="range" min="0" max="3" step="0.05" value="1" class="form-range" />
-          </div>
-
-          <div class="control-group">
-            <label>Light color</label>
-            <div class="color-grid">
-              <button class="color-swatch" data-color="#ffffff" style="background:#ffffff"></button>
-              <button class="color-swatch" data-color="#ffe066" style="background:#ffe066"></button>
-              <button class="color-swatch" data-color="#80d8ff" style="background:#80d8ff"></button>
-              <button class="color-swatch" data-color="#ff8a80" style="background:#ff8a80"></button>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <button id="textureButton" class="btn btn-outline-secondary">Change Texture</button>
-          </div>
-
-          <div class="control-group texture-preview-group">
-            <label>Active texture</label>
-            <div class="texture-preview-card">
-              <img id="activeTextureImage" src="assets/resources/models/oak-wood-bare-bl/oak-wood-bare_preview.jpg" alt="Active texture preview" />
-              <span id="activeTextureName">Oak Wood</span>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <label>Texture options</label>
-            <div class="texture-options" id="textureOptions"></div>
-          </div>
-
-          <div class="info-box" id="modelInfo">
-            <h2>Model Info</h2>
-            <p id="modelTitle">Table</p>
-            <p id="modelDescription">A 3D scene for a table, chair, and bench gallery. Models will load from GLB files when available.</p>
-          </div>
-        </section>
-      </aside>
-
-      <section class="col-lg-8">
-        <section class="panel panel-viewer">
-          <div id="viewer" class="viewer"></div>
-          <div class="viewer-text">Drag to rotate around the object with the camera controls.</div>
-        </section>
-
-        <section class="panel panel-models mt-4">
-          <h2>Model sections</h2>
-          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 model-cards">
-            <article class="col model-card p-3">
-              <h3>Table</h3>
-              <p>Load from <code>assets/resources/models/Table.glb</code>. This section is for your table asset.</p>
-            </article>
-            <article class="col model-card p-3">
-              <h3>Chair</h3>
-              <p>Load from <code>assets/resources/models/Chair.glb</code>. This section is for your chair asset.</p>
-            </article>
-            <article class="col model-card p-3">
-              <h3>Bench</h3>
-              <p>Load from <code>assets/resources/models/Bench.glb</code>. This section is for your bench asset.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="panel panel-media mt-4">
-          <h2>Interface Notes</h2>
-          <div class="tabs">
-            <button class="tab-button active" data-tab="overview">Overview</button>
-            <button class="tab-button" data-tab="features">Features</button>
-            <button class="tab-button" data-tab="nextSteps">Next steps</button>
-          </div>
-          <div class="tab-content active" id="overview">
-            <p>This starter site uses Three.js to render a 3D scene inside a responsive web page. It includes model selection, lighting controls, and wireframe toggling.</p>
-          </div>
-          <div class="tab-content" id="features">
-            <ul>
-              <li>Three.js 3D viewport with interactive controls</li>
-              <li>Model gallery with three placeholder models</li>
-              <li>Wireframe toggle for debugging geometry</li>
-              <li>Light intensity and color controls</li>
-              <li>Content swapping via JavaScript tabs</li>
-            </ul>
-          </div>
-          <div class="tab-content" id="nextSteps">
-            <p>Use this scaffold to replace placeholder models with your own glTF/GLB assets exported from Blender or 3ds Max.</p>
-          </div>
-        </section>
-      </section>
-    </div>
+    <section class="panel panel-home text-center py-5">
+      <h1>Welcome to Generic Furniture Company</h1>
+      <p class="lead">Discover handcrafted furniture with immersive 3D previews and modern materials designed for elevated interiors.</p>
+      <div class="hero-pill">
+        Explore curated benches, chairs, and tables built with premium textures and minimalist form.
+      </div>
+      <div class="hero-actions mt-4">
+        <a class="btn btn-primary me-3" href="pages/products.html">Browse the collection</a>
+        <a class="btn btn-outline-secondary" href="pages/about.html">Learn more</a>
+      </div>
+    </section>
   </main>
 
-  <div class="texture-modal" id="textureModal" aria-hidden="true">
-    <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Select Texture</h2>
-        <button class="modal-close" id="modalClose">×</button>
-      </div>
-      <div class="modal-body">
-        <div class="texture-grid" id="textureGrid"></div>
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-footer">
-    <p>Built for the Web3D assignment. Keep your final submission on the university server or GitHub archive only.</p>
-  </footer>
-
-  <script type="module" src="js/app.js"></script>
+  <div id="shared-footer"></div>
+  <script type="module" src="js/shared-layout.js"></script>
 </body>
 </html>

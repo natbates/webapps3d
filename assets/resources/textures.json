@@ -1,0 +1,122 @@
+{
+  "textures": [
+    {
+      "key": "cloudy_quartz",
+      "name": "Cloudy Veined Quartz",
+      "folder": "cloudy-veined-quartz-light-bl",
+      "preview": "cloudy-veined-quartz-light_preview.jpg",
+      "base": "cloudy-veined-quartz-light_albedo.png",
+      "normal": "cloudy-veined-quartz-light_normal-ogl.png",
+      "roughness": "cloudy-veined-quartz-light_roughness.png",
+      "metalness": "cloudy-veined-quartz-light_metallic.png",
+      "ao": "cloudy-veined-quartz-light_ao.png",
+      "displacement": null,
+      "description": "A polished quartz finish with soft marble veining for calm interiors."
+    },
+    {
+      "key": "gold_scuffed",
+      "name": "Gold Scuffed",
+      "folder": "gold-scuffed-bl",
+      "preview": "gold-scuffed_basecolor.png",
+      "base": "gold-scuffed_basecolor.png",
+      "normal": "gold-scuffed_normal.png",
+      "roughness": "gold-scuffed_roughness.png",
+      "metalness": "gold-scuffed_metallic.png",
+      "ao": null,
+      "displacement": null,
+      "description": "Worn metallic elegance with subtle texture and warm sheen."
+    },
+    {
+      "key": "granite_smooth",
+      "name": "Granite Smooth",
+      "folder": "granitesmooth1-bl",
+      "preview": "granitesmooth1-albedo.png",
+      "base": "granitesmooth1-albedo.png",
+      "normal": "granitesmooth1-normal2.png",
+      "roughness": "granitesmooth1-roughness3.png",
+      "metalness": "granitesmooth1-metalness.png",
+      "ao": null,
+      "displacement": null,
+      "description": "A refined granite texture with subtle depth and natural cool tones."
+    },
+
+    {
+      "key": "ice_field",
+      "name": "Ice Field",
+      "folder": "ice-field-bl",
+      "preview": "ice_field_preview.jpg",
+      "base": "ice_field_albedo.png",
+      "normal": "ice_field_normal-ogl.png",
+      "roughness": "ice_field_roughness.png",
+      "metalness": "ice_field_metallic.png",
+      "ao": "ice_field_ao.png",
+      "displacement": "ice_field_height.png",
+      "description": "Cool, crystalline texture with icy clarity and soft reflections."
+    },
+    {
+      "key": "micarta_handle",
+      "name": "Micarta Knife Handle",
+      "folder": "micarta-knife-handle-bl",
+      "preview": "micarta-knife-handle_preview.jpg",
+      "base": "micarta-knife-handle_albedo.png",
+      "normal": "micarta-knife-handle_normal-ogl.png",
+      "roughness": "micarta-knife-handle_roughness.png",
+      "metalness": "micarta-knife-handle_metallic.png",
+      "ao": "micarta-knife-handle_ao.png",
+      "displacement": "micarta-knife-handle_height.png",
+      "description": "A rugged wrapped-fabric finish with subtle tactile detail."
+    },
+    {
+      "key": "oak",
+      "name": "Oak Wood",
+      "folder": "oak-wood-bare-bl",
+      "preview": "oak-wood-bare_preview.jpg",
+      "base": "oak-wood-bare_albedo.png",
+      "normal": "oak-wood-bare_normal-ogl.png",
+      "roughness": "oak-wood-bare_roughness.png",
+      "metalness": "oak-wood-bare_metallic.png",
+      "ao": "oak-wood-bare_ao.png",
+      "displacement": "oak-wood-bare_height.png",
+      "description": "A classic oak texture with warm grain and gentle surface variation."
+    },
+    {
+      "key": "whispy_grass",
+      "name": "Whispy Grass Meadow",
+      "folder": "whispy-grass-meadow-bl",
+      "preview": "wispy-grass-meadow_preview.jpg",
+      "base": "wispy-grass-meadow_albedo.png",
+      "normal": "wispy-grass-meadow_normal-ogl.png",
+      "roughness": "wispy-grass-meadow_roughness.png",
+      "metalness": "wispy-grass-meadow_metallic.png",
+      "ao": "wispy-grass-meadow_ao.png",
+      "displacement": "whispy-grass-meadow_height.png",
+      "description": "A natural textile surface with soft, organic speckled tones."
+    },
+    {
+      "key": "worn_aluminum",
+      "name": "Worn Aluminum",
+      "folder": "worn-aluminum-bl",
+      "preview": "worn-aluminum_preview.jpg",
+      "base": "worn-aluminum_albedo.png",
+      "normal": "worn-aluminum_normal-ogl.png",
+      "roughness": "worn-aluminum_roughness.png",
+      "metalness": "worn-aluminum_metallic.png",
+      "ao": "worn-aluminum_ao.png",
+      "displacement": "worn-aluminum_height.png",
+      "description": "A vintage industrial finish with subtle distress and metallic depth."
+    },
+    {
+      "key": "yoga",
+      "name": "Yoga Mat",
+      "folder": "yoga-mat-wavy-pattern1-bl",
+      "preview": "yoga-mat-wavy-pattern1-preview.jpg",
+      "base": "yoga-mat-wavy-pattern1-albedo.png",
+      "normal": "yoga-mat-wavy-pattern1-Normal-ogl.png",
+      "roughness": "yoga-mat-wavy-pattern1-Roughness.png",
+      "metalness": "yoga-mat-wavy-pattern1-Metallic.png",
+      "ao": "yoga-mat-wavy-pattern1-ao.png",
+      "displacement": "yoga-mat-wavy-pattern1-Height.png",
+      "description": "A sporty textured finish with dynamic waves and subtle shadowing."
+    }
+  ]
+}

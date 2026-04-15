@@ -3,61 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About - Web3D Studio</title>
+  <title>About - Generic Furniture Company</title>
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/shared.css" />
   <link rel="stylesheet" href="../css/pages.css" />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <span class="logo">Web3D Studio</span>
-      <span class="tagline">About the 3D application and model creation plan</span>
-    </div>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="about.html" class="active">About</a>
-      <a href="statement.html">Statement</a>
-      <a href="references.html">References</a>
-      <a href="https://github.com/" target="_blank" rel="noreferrer" class="icon-link" aria-label="GitHub">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.16 6.84 9.49.5.09.66-.22.66-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.1-1.45-1.1-1.45-.9-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.95 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0112 6.8c.85.004 1.71.11 2.51.32 1.9-1.29 2.74-1.02 2.74-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.86 0 1.34-.01 2.42-.01 2.74 0 .27.16.58.67.48A10 10 0 0022 12c0-5.52-4.48-10-10-10z"/>
-        </svg>
-      </a>
-    </nav>
-  </header>
-
-  <main class="container page-layout">
+  <div id="shared-nav"></div>
+<main class="container page-layout">
     <section class="panel panel-page">
       <h1 class="page-title">About this 3D App</h1>
-      <p class="page-copy">This website is built to satisfy the assignment requirements for a 3D application using HTML5, CSS3, and JavaScript. It demonstrates how to load and swap models, control lighting, and provide a responsive interface.</p>
-
-      <h2>How the app is structured</h2>
-      <ul class="page-copy">
-        <li>A responsive page layout with a header, control panel, viewer, and media section.</li>
-        <li>A Three.js viewport that can show different 3D objects.</li>
-        <li>UI controls for switching models, toggling wireframe mode, and adjusting light properties.</li>
-        <li>A separate section for content and references.</li>
-      </ul>
-
-      <h2>Model creation roadmap</h2>
-      <ol class="page-copy">
-        <li>Design and create at least three models in Blender or 3ds Max.</li>
-        <li>Refine geometry, add realistic materials, and UV unwrap each model.</li>
-        <li>Apply texture maps for labels, brand details, and product finishes.</li>
-        <li>Export each model as glTF / GLB for Three.js compatibility.</li>
-        <li>Replace the placeholder objects in <code>js/app.js</code> with real loaded models from the <code>assets/resources/models/</code> folder.</li>
-      </ol>
-
-      <h2>Recommended submission approach</h2>
-      <p class="page-copy">Keep the website files and 3D sources together. Use GitHub for version control and as your submission archive. Include Blender or 3ds Max source files, exported glTF/GLB models, and a short README describing each model.</p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <p>Remember: do not publish your final submission on external ISP sites. Use the university server, Canvas zip upload, or GitHub archive.</p>
-  </footer>
+  <div id="shared-footer"></div>
+  <script type="module" src="../js/shared-layout.js"></script>
 </body>
 </html>
