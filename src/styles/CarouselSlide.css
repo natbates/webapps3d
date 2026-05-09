@@ -1,0 +1,114 @@
+.carousel-slide {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: min(78vh, 780px);
+  overflow: visible;
+  background: transparent;
+  border: none;
+  touch-action: pan-y;
+  transition: transform 700ms ease;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.carousel-slide.near {
+  opacity: 1;
+  transform: scale(0.96);
+  pointer-events: auto;
+}
+
+.carousel-slide.far {
+  opacity: 1;
+  transform: scale(0.93);
+  pointer-events: none;
+}
+
+.carousel-slide-canvas {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.carousel-slide-connector {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.carousel-slide-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 4;
+  max-width: min(46ch, 60%);
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 18, 0.66);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.carousel-slide-overlay h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent) !important;
+  text-transform: uppercase;
+}
+
+.carousel-slide-overlay p {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-info-boxes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.info-box-slot-0 {
+  position: absolute;
+  right: 20px;
+  top: 30px;
+}
+
+.info-box-slot-1 {
+  position: absolute;
+  right: 160px;
+  top: 30px;
+}
+
+.info-box-slot-2 {
+  position: absolute;
+  right: 20px;
+  top: 150px;
+}
+
+.info-box-slot-3 {
+  position: absolute;
+  right: 160px;
+  top: 150px;
+}
+
+.info-box-slot-4 {
+  position: absolute;
+  right: 20px;
+  top: 270px;
+}
+
+.info-box-slot-5 {
+  position: absolute;
+  right: 160px;
+  top: 270px;
+}

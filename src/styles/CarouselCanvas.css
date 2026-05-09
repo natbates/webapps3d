@@ -1,0 +1,143 @@
+.carousel-canvas-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  cursor: grab;
+  transform: scale(1);
+  transition: transform 180ms ease;
+  will-change: transform;
+}
+
+.carousel-canvas.grabbing {
+  cursor: grabbing;
+  transform: scale(1.02);
+}
+
+.canvas-see-more-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.469);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  font-size: 14px;
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.canvas-see-more-btn:hover {
+  opacity: 1;
+  color: white;
+  background: var(--accent);
+}
+
+.canvas-see-more-btn:active {
+  transform: scale(0.95);
+}
+
+.canvas-button-stack {
+  position: absolute;
+  bottom: 36px;
+  right: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 10;
+  max-width: min(72vw, 700px);
+}
+
+.canvas-stack-button {
+  background: rgba(52, 52, 52, 0.156) !important;
+  color: rgba(255, 255, 255, 0.372) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  backdrop-filter: blur(8px);
+  font-size: 10px;
+  transform-origin: bottom right;
+}
+
+.canvas-stack-button:hover {
+  background: white !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: black !important;
+  transform: scale(1.05);
+}
+
+.canvas-stack-button:active {
+  transform: scale(0.95);
+}
+
+.canvas-stack-button.active {
+  background: rgba(100, 200, 255, 0.3);
+  border-color: rgba(100, 200, 255, 0.6);
+  color: rgba(100, 200, 255, 1);
+}
+
+.canvas-state-row,
+.canvas-animation-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.canvas-texture-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+}
+
+.texture-option-chip {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: rgba(20, 20, 20, 0.55);
+  overflow: hidden;
+}
+
+.texture-option-chip.active {
+  border: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.texture-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+}
+
+.texture-preview-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 6px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.75);
+}

@@ -1,0 +1,27 @@
+
+.about-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.about-page h1
+{
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-page h4
+{
+    font-size: 1.25rem;
+    margin-bottom: 0.2rem;
+    margin-top: 2rem;
+}
+
+.about-page p {
+  max-width: 600px;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.7;
+}

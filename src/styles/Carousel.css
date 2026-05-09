@@ -1,0 +1,130 @@
+#homeCarouselWrap,
+#homeCarousel {
+  width: 100%;
+  height: 100%;
+}
+
+#homeCarousel {
+  position: relative;
+  overflow: hidden;
+}
+
+#carouselTrack {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: var(--carousel-gap);
+  padding: 0;
+  will-change: transform;
+  touch-action: pan-y;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: none;
+  border-radius: 50%;
+  outline: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 18, 0.5);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+}
+
+.carousel-button:hover {
+  outline-color: var(--accent);
+  color: var(--accent);
+}
+
+.carousel-prev {
+  left: 0.5rem;
+}
+
+.carousel-next {
+  right: 0.5rem;
+}
+
+.light-strength-slider {
+  position: absolute;
+  bottom: 26px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 20;
+}
+
+.light-strength-slider .sun-icon
+{
+  position: absolute;
+  bottom: 196px;
+  left: 0px;
+}
+
+.light-strength-slider .moon-icon
+{
+  position: absolute;
+  bottom: 30px;
+  left: 0px;
+}
+
+.light-strength-slider label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.light-slider-input {
+  writing-mode: vertical-lr;
+  direction: rtl;
+
+  width: 8px;
+  height: 180px;
+
+  appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.light-slider-input::-webkit-slider-thumb {
+  appearance: none;
+
+  width: 8px;
+  height: 8px;
+
+  background: #ffffff;
+  border: none;
+
+  cursor: grab;
+}
+
+
+.light-slider-input::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+
+  background: #ffffff;
+  border: none;
+
+  cursor: grab;
+}
+
+.light-value {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: right;
+}

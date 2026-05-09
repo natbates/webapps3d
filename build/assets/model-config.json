@@ -1,0 +1,146 @@
+{
+  "models": [
+    {
+      "key": "nes-system",
+      "name": "NES System",
+      "file": "/models/NES System.glb",
+      "description": "The hero console in the set. It is the right place to hang power states, sound cues, and lighting changes.",
+      "scale": 1,
+      "animations": [
+        {
+          "key": "turn-on",
+          "label": "Turn On",
+          "animation": "Power On",
+          "soundFile": "sounds/nes-turn-on.mp3"
+        }
+      ],
+      "states": [
+        {
+          "key": "off",
+          "label": "Power Off",
+          "default": true,
+          "materialName": "light",
+          "emissiveIntensity": 0,
+          "description": "Idle state for the front-panel and bezel treatment."
+        },
+        {
+          "key": "on",
+          "label": "Power On",
+          "animation": "Power On",
+          "materialName": "light",
+          "textureFile": "textures/nes-light-on.png",
+          "emissiveTextureFile": "textures/nes-light-on-emissive.png",
+          "emissiveIntensity": 2.4,
+          "soundFile": "sounds/nes-turn-on.mp3",
+          "description": "Hook a power-on clip to this state when the GLB exports an animation with the matching clip name."
+        }
+      ],
+      "about": {
+        "title": "NES System overview",
+        "summary": "A large, static-friendly hero model that can drive the most complete set of animation, sound, and state hooks.",
+        "details": [
+          "Use this manifest entry when you want the front page or detail page to feel like a centerpiece rather than a compact accessory.",
+          "If the exported GLB includes a power animation clip, the on state can trigger it and keep the surrounding UI in sync.",
+          "This entry is also a good template for adding extra images or video references once you have renders or assembly footage."
+        ],
+        "media": []
+      }
+    },
+    {
+      "key": "controller",
+      "name": "Controller",
+      "file": "models/Controller.glb",
+      "description": "A compact object with no required state machine. It is ideal for texture-led presentation and simple orbit inspection.",
+      "scale": 0.8,
+      "animations": [
+        {
+          "key": "button-a",
+          "label": "Button Press A",
+          "animation": "Button Press A",
+          "soundFile": "sounds/controller-button-a.mp3"
+        },
+        {
+          "key": "button-b",
+          "label": "Button Press B",
+          "animation": "Button Press B",
+          "soundFile": "sounds/controller-button-b.mp3"
+        }
+      ],
+      "states": [],
+      "sounds": [],
+      "about": {
+        "title": "Controller reference",
+        "summary": "This model stays intentionally simple so it can act as a clean comparison object without animation requirements.",
+        "details": [
+          "Leave the state list empty when a model does not need any on/off, armed, or inserted behaviors.",
+          "This entry demonstrates that the manifest can still provide rich descriptive content without animations or sounds.",
+          "You can add preview media later if you want to show a render turntable or a close-up breakdown."
+        ],
+        "media": []
+      }
+    },
+    {
+      "key": "cartridge",
+      "name": "Cartridge",
+      "file": "models/Cartridge.glb",
+      "description": "A small object that can expose an inserted state, but does not need animation to be useful.",
+      "scale": 0.85,
+      "defaultTexture": "label-classic",
+      "textures": [
+        {
+          "key": "super-mario-bros",
+          "label": "Super Mario Bros.",
+          "textureFile": "textures/cartridge-classic.png",
+          "previewImage": "textures/mario/mario-preview.png"
+        },
+        {
+          "key": "label-black",
+          "label": "Black Label",
+          "textureFile": "textures/cartridge-black.png",
+          "previewImage": "images/cartridge-black-preview.png"
+        },
+        {
+          "key": "label-special",
+          "label": "Special Label",
+          "textureFile": "textures/cartridge-special.png",
+          "previewImage": "images/cartridge-special-preview.png"
+        }
+      ],
+      "about": {
+        "title": "Cartridge detail",
+        "summary": "A state-light model that still benefits from a small amount of behavior and finish switching.",
+        "details": [
+          "This is the clearest example of a model that changes state without any clip-based animation.",
+          "If you later add a label decal or shell color variant, the state can swap to the matching texture key.",
+          "Use the inserted state if the cartridge should visually read as installed rather than loose."
+        ],
+        "media": []
+      }
+    },
+    {
+      "key": "blaster",
+      "name": "Blaster",
+      "file": "models/Blaster.glb",
+      "description": "A more action-oriented model where a button press can trigger a ready or armed state and optionally an animation clip.",
+      "scale": 1.05,
+      "animations": [
+        {
+          "key": "fire-blaster",
+          "label": "Fire Blaster",
+          "animation": "Fire Blaster",
+          "soundFile": "sounds/blaster-fire.mp3"
+        }
+      ],
+      "about": {
+        "title": "Blaster reference",
+        "summary": "A model that benefits from explicit state switching because it feels more alive when the user can arm it.",
+        "details": [
+          "This entry is the best place to test a state change that does more than swap the finish.",
+          "If the exported GLB eventually contains a Raise or similar clip, the armed state can play it when pressed.",
+          "You can expand this section with reference renders, exploded views, or short usage clips later on."
+        ],
+        "media": []
+      }
+    }
+  ]
+}
