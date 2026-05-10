@@ -19,7 +19,7 @@ function Navigation() {
         />
 
         <div className="nav-title">
-          <span>The</span> <em>1985</em> NES
+          <span>The</span> <em>1985</em> NES <span>set</span>
         </div>
       </div>
 

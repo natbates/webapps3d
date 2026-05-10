@@ -22,10 +22,18 @@
   transform: scale(1.02);
 }
 
+.see-more-text
+{
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .canvas-see-more-btn {
   position: absolute;
   top: 16px;
-  right: 16px;
+  right: 26px;
   background: rgb(255, 255, 255);
   border: 1px solid rgba(0, 0, 0, 0.469);
   color: rgb(0, 0, 0);
@@ -37,6 +45,77 @@
   font-size: 14px;
   z-index: 10;
   opacity: 0.7;
+}
+
+.canvas-toggle-row {
+  position: absolute;
+  top: 58px;
+  left: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.canvas-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #161616;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  padding: 6px 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.canvas-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.spin-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #1f1f1f;
+  background: #f7f7f7;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  image-rendering: pixelated;
+}
+
+.spin-checkbox.checked {
+  border-color: #1d3b16;
+}
+
+.pixel-tick {
+  width: 2px;
+  height: 2px;
+  background: #17350f;
+  transform: translate(-4.5px, -1px);
+  box-shadow:
+    2px 2px 0 #17350f,
+    4px 4px 0 #17350f,
+    6px 2px 0 #17350f,
+    8px 0 0 #17350f,
+    10px -2px 0 #17350f;
+}
+
+.spin-toggle-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.canvas-toggle input:focus-visible + .spin-checkbox {
+  outline: 2px solid #1d5fe0;
+  outline-offset: 2px;
 }
 
 .canvas-see-more-btn:hover {

@@ -6,32 +6,28 @@
       "file": "/models/NES System.glb",
       "description": "The hero console in the set. It is the right place to hang power states, sound cues, and lighting changes.",
       "scale": 1,
-      "animations": [
-        {
-          "key": "turn-on",
-          "label": "Turn On",
-          "animation": "Power On",
-          "soundFile": "sounds/nes-turn-on.mp3"
-        }
-      ],
       "states": [
         {
           "key": "off",
           "label": "Power Off",
           "default": true,
+          "animation": "Turn on",
+          "reverseAnimation": true,
+          "resetToDefault": true,
           "materialName": "light",
           "emissiveIntensity": 0,
+          "soundFile": "sounds/power-off.mp3",
           "description": "Idle state for the front-panel and bezel treatment."
         },
         {
           "key": "on",
           "label": "Power On",
-          "animation": "Power On",
+          "animation": "Turn on",
           "materialName": "light",
           "textureFile": "textures/nes-light-on.png",
           "emissiveTextureFile": "textures/nes-light-on-emissive.png",
           "emissiveIntensity": 2.4,
-          "soundFile": "sounds/nes-turn-on.mp3",
+          "soundFile": "sounds/power-on.mp3",
           "description": "Hook a power-on clip to this state when the GLB exports an animation with the matching clip name."
         }
       ],
@@ -43,7 +39,7 @@
           "If the exported GLB includes a power animation clip, the on state can trigger it and keep the surrounding UI in sync.",
           "This entry is also a good template for adding extra images or video references once you have renders or assembly footage."
         ],
-        "media": []
+        "media": ["https://www.youtube.com/watch?v=vDFvkWY6tJU"]
       }
     },
     {
@@ -55,15 +51,15 @@
       "animations": [
         {
           "key": "button-a",
-          "label": "Button Press A",
-          "animation": "Button Press A",
-          "soundFile": "sounds/controller-button-a.mp3"
+          "label": "Press A",
+          "animation": "Click A",
+          "soundFile": "sounds/button-a.mp3"
         },
         {
           "key": "button-b",
-          "label": "Button Press B",
-          "animation": "Button Press B",
-          "soundFile": "sounds/controller-button-b.mp3"
+          "label": "Press B",
+          "animation": "Click B",
+          "soundFile": "sounds/button-b.mp3"
         }
       ],
       "states": [],
@@ -92,19 +88,21 @@
           "label": "Super Mario Bros.",
           "textureFile": "textures/mario/mario.png",
           "previewImage": "textures/mario/mario-preview.png",
-          "materialName": "Label"
+          "materialName": "GameTexture"
         },
         {
           "key": "duckhunt",
           "label": "Duck Hunt",
           "textureFile": "textures/duckhunt/duckhunt.png",
-          "previewImage": "textures/duckhunt/duckhunt-preview.png"
+          "previewImage": "textures/duckhunt/duckhunt-preview.png",
+          "materialName": "GameTexture"
         },
         {
           "key": "legend-of-zelda",
           "label": "Legend of Zelda",
           "textureFile": "textures/zelda/zelda.png",
-          "previewImage": "textures/zelda/zelda-preview.png"
+          "previewImage": "textures/zelda/zelda-preview.png",
+          "materialName": "GameTexture"
         }
       ],
       "about": {
@@ -128,8 +126,8 @@
         {
           "key": "fire-blaster",
           "label": "Fire Blaster",
-          "animation": "Fire Blaster",
-          "soundFile": "sounds/blaster-fire.mp3"
+          "animation": "TriggerAction",
+          "soundFile": "sounds/zapper.mp3"
         }
       ],
       "about": {
@@ -140,7 +138,7 @@
           "If the exported GLB eventually contains a Raise or similar clip, the armed state can play it when pressed.",
           "You can expand this section with reference renders, exploded views, or short usage clips later on."
         ],
-        "media": []
+        "media": ["https://www.youtube.com/watch?v=x-daxzVxrQI"]
       }
     }
   ]

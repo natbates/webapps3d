@@ -16,6 +16,9 @@ function About() {
         <h4>Animations and Interactions</h4>
         <p>The animations and interactions were implemented to...</p>
 
+        <h4>Sound Design</h4>
+        <p>The animations and interactions were implemented to...</p>
+
         <h4>Making the Website</h4>
         <p>The website was built using...</p>
 

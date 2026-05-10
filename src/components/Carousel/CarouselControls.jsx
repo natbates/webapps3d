@@ -19,17 +19,12 @@ const CarouselControls = ({ onPrev, onNext }) => {
         if (isPaused) {
         startAutoplay();
         } else {
-        pauseCarousel();
+        pauseCarousel('manual');
         }
     };
 
     const handleBarSelect = (index) => {
         setCurrentIndex(index);
-
-                // Preserve a user-paused carousel when navigating via the bottom bars.
-        if (isPaused) {
-            pauseCarousel();
-        }
     };
 
     const mid = Math.ceil(productKeys.length / 2);

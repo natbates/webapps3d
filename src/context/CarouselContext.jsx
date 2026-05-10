@@ -6,25 +6,32 @@ export function CarouselProvider({ children }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isGrabbing, setIsGrabbing] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [autoSpinEnabled, setAutoSpinEnabled] = useState(true);
+  const [playSoundsEnabled, setPlaySoundsEnabled] = useState(true);
   const [lightStrength, setLightStrength] = useState(1);
   const autoplayTimerRef = useRef(null);
+  const manualPauseRef = useRef(false);
   const [slideCount, setSlideCount] = useState(0);
 
-  const pauseCarousel = useCallback(() => {
+  const pauseCarousel = useCallback((reason = 'interaction') => {
+    if (reason === 'manual') {
+      manualPauseRef.current = true;
+    }
     setIsPaused(true);
   }, []);
 
   const resumeCarousel = useCallback(() => {
+    if (manualPauseRef.current) return;
     setIsPaused(false);
   }, []);
 
   const startAutoplay = useCallback(() => {
+    manualPauseRef.current = false;
     setIsPaused(false);
   }, []);
 
   const goToSlide = useCallback((index) => {
     setCurrentIndex(index);
-    setIsPaused(false);
   }, []);
 
   const nextSlide = useCallback(() => {
@@ -35,27 +42,18 @@ export function CarouselProvider({ children }) {
     setCurrentIndex(prev => (prev - 1 + slideCount) % slideCount);
   }, [slideCount]);
 
-  // Track previous isPaused to detect transitions
-  const prevIsPausedRef = useRef(isPaused);
-
-  // Start autoplay only when isPaused transitions from true to false
+  // Keep a single autoplay interval synchronized to pause state.
   useEffect(() => {
-    if (prevIsPausedRef.current === true && isPaused === false && slideCount > 0) {
-      // User just clicked play - start the interval
-      if (autoplayTimerRef.current) {
-        clearInterval(autoplayTimerRef.current);
-        autoplayTimerRef.current = null;
-      }
-      autoplayTimerRef.current = setInterval(() => {
-        setCurrentIndex(prev => (prev + 1) % slideCount);
-      }, 4000);
-    } else if (isPaused === true && autoplayTimerRef.current) {
-      // User paused - clear the interval
+    if (autoplayTimerRef.current) {
       clearInterval(autoplayTimerRef.current);
       autoplayTimerRef.current = null;
     }
-    
-    prevIsPausedRef.current = isPaused;
+
+    if (!isPaused && slideCount > 0) {
+      autoplayTimerRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % slideCount);
+      }, 4000);
+    }
 
     return () => {
       if (autoplayTimerRef.current) {
@@ -82,6 +80,10 @@ export function CarouselProvider({ children }) {
     setSlideCount,
     lightStrength,
     setLightStrength,
+    autoSpinEnabled,
+    setAutoSpinEnabled,
+    playSoundsEnabled,
+    setPlaySoundsEnabled,
   };
 
   return (

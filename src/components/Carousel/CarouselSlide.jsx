@@ -17,21 +17,6 @@ function CarouselSlide({ productKey, index, lightStrength, onClick }) {
   const modelAnchorRef = useRef(null);
   const drawFrameRef = useRef(null);
 
-  // Create info boxes from media
-  useEffect(() => {
-    if (!config?.about?.media) return;
-
-    const boxes = (config.about.media || []).map((media, i) => ({
-      id: `${productKey}-media-${i}`,
-      type: media.type || 'image',
-      src: media.src,
-      poster: media.poster,
-      title: media.title || `Media ${i + 1}`,
-    }));
-
-    setInfoBoxes(boxes);
-  }, [config, productKey]);
-
   const drawConnectors = useCallback(() => {
     if (!svgRef.current) return;
 

@@ -1,0 +1,111 @@
+.model-detail-canvas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.model-detail-canvas {
+  width: 100%;
+  height: 500px;
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.model-canvas-button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.canvas-texture-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  role: 'group';
+}
+
+.texture-option-chip {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.texture-option-chip:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.texture-option-chip.active {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.texture-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.texture-preview-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 4px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.canvas-state-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.canvas-animation-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.canvas-stack-button {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 0.85rem;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.canvas-stack-button:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 1);
+}
+
+.canvas-stack-button.active,
+.wireframe-btn.active {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--accent);
+}
+
+.cycle-btn {
+  font-weight: 500;
+}

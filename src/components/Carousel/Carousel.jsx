@@ -22,6 +22,10 @@ function Carousel() {
     setSlideCount,
     lightStrength,
     setLightStrength,
+    autoSpinEnabled,
+    setAutoSpinEnabled,
+    playSoundsEnabled,
+    setPlaySoundsEnabled,
   } = useCarousel();
 
   const trackRef = useRef(null);
@@ -131,6 +135,40 @@ function Carousel() {
   return (
     <div id="homeCarouselWrap">
       <div id="homeCarousel">
+        <div className="carousel-toggle-row">
+          <label
+            className="carousel-toggle"
+            title="Toggle model auto spin for all models"
+          >
+            <input
+              type="checkbox"
+              checked={autoSpinEnabled}
+              onChange={(event) => setAutoSpinEnabled(event.target.checked)}
+              aria-label="Auto spin all models"
+            />
+            <span className={`spin-checkbox ${autoSpinEnabled ? 'checked' : ''}`} aria-hidden="true">
+              {autoSpinEnabled && <span className="pixel-tick" />}
+            </span>
+            <span className="spin-toggle-label">Spin The Model</span>
+          </label>
+
+          <label
+            className="carousel-toggle"
+            title="Toggle model sounds for all models"
+          >
+            <input
+              type="checkbox"
+              checked={playSoundsEnabled}
+              onChange={(event) => setPlaySoundsEnabled(event.target.checked)}
+              aria-label="Play sounds for all models"
+            />
+            <span className={`spin-checkbox ${playSoundsEnabled ? 'checked' : ''}`} aria-hidden="true">
+              {playSoundsEnabled && <span className="pixel-tick" />}
+            </span>
+            <span className="spin-toggle-label">Play Sounds</span>
+          </label>
+        </div>
+
         <div
           id="carouselTrack"
           ref={trackRef}

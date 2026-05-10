@@ -5,6 +5,15 @@ import { useCarousel } from '../../context/CarouselContext';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import '../../styles/CarouselCanvas.css';
+import { FaEye } from 'react-icons/fa6';
+import {
+  getModelMaterials as utilGetModelMaterials,
+  cacheMaterialDefaults as utilCacheMaterialDefaults,
+  loadTexture as utilLoadTexture,
+  playAnimationByName as utilPlayAnimationByName,
+  applyTextureDefinition as utilApplyTextureDefinition,
+  restoreMaterialDefaults as utilRestoreMaterialDefaults,
+} from '../../utils/canvasUtils';
 
 const BASE_LIGHTS = {
   hemisphere: 1.15,
@@ -24,7 +33,7 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
   const mixerRef = useRef(null);
   const clipsRef = useRef([]);
   const animationFrameRef = useRef(null);
-  const clockRef = useRef(new THREE.Clock());
+  const lastFrameTimeRef = useRef(0);
   const lightRefs = useRef({});
   const materialDefaultsRef = useRef(new Map());
   const textureCacheRef = useRef(new Map());
@@ -41,7 +50,15 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
   const [selectedTextureKey, setSelectedTextureKey] = useState(null);
 
   const { modelConfigs, makeModelPath, resolveResourceValue } = useResources();
-  const { pauseCarousel, resumeCarousel, setIsGrabbing, isGrabbing, isPaused } = useCarousel();
+  const {
+    pauseCarousel,
+    resumeCarousel,
+    setIsGrabbing,
+    isGrabbing,
+    isPaused,
+    autoSpinEnabled,
+    playSoundsEnabled,
+  } = useCarousel();
 
   const config = modelConfigs?.[productKey];
 
@@ -71,8 +88,14 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
     }
   }, []);
 
+  useEffect(() => {
+    if (!playSoundsEnabled) {
+      stopAudio();
+    }
+  }, [playSoundsEnabled, stopAudio]);
+
   const playSound = useCallback((soundFile) => {
-    if (!soundFile) return;
+    if (!soundFile || !playSoundsEnabled) return;
 
     const source = resolveResourceValue(soundFile);
     if (!source) return;
@@ -84,135 +107,25 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
     audio.play().catch((error) => {
       console.warn(`[CarouselCanvas] Failed to play sound for ${productKey}:`, error);
     });
-  }, [productKey, resolveResourceValue, stopAudio]);
+  }, [playSoundsEnabled, productKey, resolveResourceValue, stopAudio]);
 
-  const getModelMaterials = useCallback(() => {
-    const materials = [];
-    const model = modelRef.current;
-    if (!model) return materials;
-
-    model.traverse((node) => {
-      if (!node.isMesh || !node.material) return;
-
-      if (Array.isArray(node.material)) {
-        node.material.forEach((material) => materials.push(material));
-      } else {
-        materials.push(node.material);
-      }
-    });
-
-    return materials;
-  }, []);
+  const getModelMaterials = useCallback(() => utilGetModelMaterials(modelRef.current), []);
 
   const cacheMaterialDefaults = useCallback(() => {
-    const defaults = new Map();
-    getModelMaterials().forEach((material) => {
-      defaults.set(material.uuid, {
-        map: material.map || null,
-        emissiveMap: material.emissiveMap || null,
-        emissiveIntensity:
-          typeof material.emissiveIntensity === 'number' ? material.emissiveIntensity : 1,
-      });
-    });
-    materialDefaultsRef.current = defaults;
-  }, [getModelMaterials]);
-
-  const getCachedTexture = useCallback((path) => {
-    if (!path) return Promise.resolve(null);
-
-    const existing = textureCacheRef.current.get(path);
-    if (existing) return existing;
-
-    const texturePromise = new Promise((resolve) => {
-      const loader = new THREE.TextureLoader();
-      loader.load(
-        path,
-        (texture) => {
-          texture.colorSpace = THREE.SRGBColorSpace;
-          texture.flipY = false;
-          resolve(texture);
-        },
-        undefined,
-        () => {
-          console.warn(`[CarouselCanvas] Texture missing: ${path}`);
-          resolve(null);
-        }
-      );
-    });
-
-    textureCacheRef.current.set(path, texturePromise);
-    return texturePromise;
+    materialDefaultsRef.current = utilCacheMaterialDefaults(modelRef.current);
   }, []);
 
-  const playAnimationByName = useCallback((clipName) => {
-    if (!clipName || !mixerRef.current) return;
-
-    const clip = THREE.AnimationClip.findByName(clipsRef.current || [], clipName);
-    if (!clip) {
-      console.warn(`[CarouselCanvas] Missing animation clip "${clipName}" for ${productKey}`);
-      return;
-    }
-
-    const action = mixerRef.current.clipAction(clip);
-    action.reset();
-    action.setLoop(THREE.LoopOnce, 1);
-    action.clampWhenFinished = true;
-    action.play();
-  }, [productKey]);
+  const playAnimationByName = useCallback((clipName, options = {}) => {
+    utilPlayAnimationByName(mixerRef.current, clipsRef.current, clipName, options);
+  }, []);
 
   const applyTextureDefinition = useCallback(async (textureDef) => {
-    if (!textureDef) return;
-
-    const mapPath = resolveResourceValue(textureDef.textureFile || textureDef.texture);
-    const emissivePath = resolveResourceValue(textureDef.emissiveTextureFile || textureDef.emissiveTexture);
-
-    const [mapTexture, emissiveTexture] = await Promise.all([
-      getCachedTexture(mapPath),
-      getCachedTexture(emissivePath),
-    ]);
-
-    getModelMaterials().forEach((material) => {
-      const targetMaterial = textureDef.materialName
-        ? (material.name || '').toLowerCase().includes(textureDef.materialName.toLowerCase())
-        : true;
-
-      if (!targetMaterial) return;
-
-      if (mapTexture) {
-        material.map = mapTexture;
-      }
-
-      if (emissiveTexture) {
-        material.emissiveMap = emissiveTexture;
-      }
-
-      if (typeof textureDef.emissiveIntensity === 'number' && 'emissiveIntensity' in material) {
-        material.emissiveIntensity = textureDef.emissiveIntensity;
-      }
-
-      material.needsUpdate = true;
-    });
-  }, [getCachedTexture, getModelMaterials, resolveResourceValue]);
+    await utilApplyTextureDefinition(modelRef.current, textureDef, textureCacheRef.current, resolveResourceValue);
+  }, [resolveResourceValue]);
 
   const restoreMaterialDefaults = useCallback((materialNameFilter) => {
-    getModelMaterials().forEach((material) => {
-      const shouldRestore = materialNameFilter
-        ? (material.name || '').toLowerCase().includes(materialNameFilter.toLowerCase())
-        : true;
-
-      if (!shouldRestore) return;
-
-      const defaults = materialDefaultsRef.current.get(material.uuid);
-      if (!defaults) return;
-
-      material.map = defaults.map;
-      material.emissiveMap = defaults.emissiveMap;
-      if ('emissiveIntensity' in material) {
-        material.emissiveIntensity = defaults.emissiveIntensity;
-      }
-      material.needsUpdate = true;
-    });
-  }, [getModelMaterials]);
+    utilRestoreMaterialDefaults(modelRef.current, materialDefaultsRef.current, materialNameFilter);
+  }, []);
 
   const handleAnimation = useCallback((animationDef) => {
     if (!animationDef) return;
@@ -226,8 +139,10 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
     await applyTextureDefinition(textureDef);
   }, [applyTextureDefinition]);
 
-  const applyState = useCallback(async (stateDef) => {
+  const applyState = useCallback(async (stateDef, options = {}) => {
     if (!stateDef) return;
+
+    const { playEffects = true } = options;
 
     setSelectedStateKey(stateDef.key || null);
 
@@ -258,8 +173,10 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
       });
     }
 
-    playAnimationByName(stateDef.animation);
-    playSound(stateDef.soundFile);
+    if (playEffects) {
+      playAnimationByName(stateDef.animation, { reverse: Boolean(stateDef.reverseAnimation) });
+      playSound(stateDef.soundFile);
+    }
   }, [applyTextureDefinition, getModelMaterials, playAnimationByName, playSound, restoreMaterialDefaults, textureOptions]);
 
   const toggleWireframe = () => {
@@ -270,6 +187,24 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
     });
     setWireframeMode(nextWireframeState);
   };
+
+  const cycleState = useCallback(() => {
+    if (!stateOptions || stateOptions.length === 0) return;
+
+    const currentKey = selectedStateKey;
+    let idx = stateOptions.findIndex((s) => s.key === currentKey);
+    if (idx === -1) {
+      // If no current selection, try to find the default, otherwise start at 0
+      idx = stateOptions.findIndex((s) => s.default);
+      if (idx === -1) idx = 0;
+    }
+
+    const nextIdx = (idx + 1) % stateOptions.length;
+    const nextState = stateOptions[nextIdx];
+    if (nextState) {
+      applyState(nextState);
+    }
+  }, [applyState, selectedStateKey, stateOptions]);
 
   const handleSeeMore = () => {
     navigate(`/model/${productKey}`);
@@ -373,7 +308,7 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
 
         const defaultState = stateOptions.find((state) => state.default);
         if (defaultState) {
-          applyState(defaultState);
+          applyState(defaultState, { playEffects: false });
         }
       },
       undefined,
@@ -412,19 +347,24 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
     window.addEventListener('mouseup', onUp);
     window.addEventListener('mousemove', onMove);
 
-    clockRef.current = new THREE.Clock();
-    const animate = () => {
+    lastFrameTimeRef.current = 0;
+    const animate = (timeMs = 0) => {
       animationFrameRef.current = requestAnimationFrame(animate);
 
       const model = modelRef.current;
       const mixer = mixerRef.current;
+      const deltaSeconds =
+        lastFrameTimeRef.current > 0
+          ? Math.min((timeMs - lastFrameTimeRef.current) / 1000, 0.1)
+          : 0;
+      lastFrameTimeRef.current = timeMs;
 
-      if (mixer) {
-        mixer.update(clockRef.current.getDelta());
+      if (mixer && deltaSeconds > 0) {
+        mixer.update(deltaSeconds);
       }
 
       if (model) {
-        if (!isMouseDownRef.current) {
+        if (!isMouseDownRef.current && autoSpinEnabled) {
           model.rotation.y += 0.007;
           model.rotation.z = Math.PI / 4;
         }
@@ -476,6 +416,7 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
     pauseCarousel,
     productKey,
     resumeCarousel,
+    autoSpinEnabled,
     setIsGrabbing,
     stateOptions,
     stopAudio,
@@ -514,12 +455,13 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
         ref={canvasRef}
         className={isGrabbing ? 'carousel-canvas grabbing' : 'carousel-canvas'}
       />
+
       <button
         className="canvas-see-more-btn"
         onClick={handleSeeMore}
         title="See more details"
       >
-        SEE MORE
+        <FaEye size={16} /> <span className='see-more-text'>SEE MORE</span>
       </button>
       <div className="canvas-button-stack">
 
@@ -546,26 +488,15 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
           </div>
         )}
 
-        <button
-          className={`canvas-stack-button wireframe-btn ${wireframeMode ? 'active' : ''}`}
-          onClick={toggleWireframe}
-          title="Toggle wireframe"
-        >
-          {wireframeMode ? 'Hide' : 'Show'} Wireframe
-        </button>
-
         {stateOptions.length > 0 && (
           <div className="canvas-state-row" role="group" aria-label="Model states">
-            {stateOptions.map((state) => (
-              <button
-                key={state.key || state.label}
-                className={`canvas-stack-button state-btn ${selectedStateKey === state.key ? 'active' : ''}`}
-                onClick={() => applyState(state)}
-                title={state.description || state.label}
-              >
-                {state.label || state.key}
-              </button>
-            ))}
+            <button
+              className={`canvas-stack-button state-btn cycle-btn`}
+              onClick={cycleState}
+              title={stateOptions.find((s) => s.key === selectedStateKey)?.description || 'Cycle state'}
+            >
+              {stateOptions.find((s) => s.key === selectedStateKey)?.label || 'Toggle State'}
+            </button>
           </div>
         )}
 
@@ -583,6 +514,14 @@ function CarouselCanvas({ productKey, lightStrength = 1, onModelScreenPointChang
             ))}
           </div>
         )}
+
+        <button
+          className={`canvas-stack-button wireframe-btn ${wireframeMode ? 'active' : ''}`}
+          onClick={toggleWireframe}
+          title="Toggle wireframe"
+        >
+          {wireframeMode ? 'Hide' : 'Show'} Wireframe
+        </button>
       </div>
     </div>
   );
